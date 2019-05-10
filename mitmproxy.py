@@ -17,18 +17,26 @@ class MITMProxy(object):
         if self.record:
             command = [
                 self.binary,
+                "-v",
                 "--save-stream-file",
                 self.path,
+
                 "--scripts",
                 os.path.join(self.scripts, "inject-deterministic.py"),
+
+
             ]
         else:
             command = [
                 self.binary,
+                '--listen-host',
+                "127.0.0.1",
+                '--listen-port',
+                '8080',
                 "--scripts",
-                os.path.join(self.scripts, "serverplayback404.py"),
-                "--set",
-                "server_replay={}".format(self.path),
+                os.path.join(self.scripts, "mitm_port_fw.py"),
+                "--set",  "portmap=80:8090,443:8091",
+                '--ssl-insecure',
             ]
         print(" ".join(command))
         self.process = subprocess.Popen(command)
