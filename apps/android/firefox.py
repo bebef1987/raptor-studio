@@ -89,7 +89,6 @@ class AbstractAndroidFirefox(object):
     def run_android_app(self, url):
         raise NotImplementedError
 
-
     def start(self, url="about:blank"):
         # create profile
         self.set_profile()
