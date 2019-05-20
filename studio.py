@@ -1,7 +1,9 @@
 import click
 import click_config_file
 
-from apps import Firefox, GeckoViewExample, Fenix, Fennec, RefBrow, Chrome
+from apps.android.firefox import GeckoViewExample, Fenix, Fennec, RefBrow
+from apps.desktop.firefox import DesktopFirefox as Firefox
+from apps.desktop.chrome import DesktopChrome as Chrome
 from mitmproxy import MITMProxy
 
 APPS = {
