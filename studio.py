@@ -12,6 +12,7 @@ APPS = {
     "Fenix": Fenix,
     "Fennec": Fennec,
     "Refbrow": RefBrow,
+    "Chrome": Chrome
 }
 
 
