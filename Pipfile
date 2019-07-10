@@ -11,6 +11,7 @@ mozdevice = "*"
 click = "*"
 click-config-file = "*"
 selenium = "*"
+mozversion = "*"
 
 [requires]
 python_version = "2.7"

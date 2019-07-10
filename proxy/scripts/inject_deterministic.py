@@ -113,8 +113,9 @@ class AddDeterministic:
     def response(self, flow):
 
         millis = int(round(time.time() * 1000))
-
-        if "content-type" in flow.response.headers:
+        if flow.type == "websocket":
+            ctx.log.info("Response is a WebSocketFlow. Bug 1559117")
+        elif "content-type" in flow.response.headers:
             if "text/html" in flow.response.headers["content-type"]:
                 ctx.log.info(
                     "Working on {}".format(flow.response.headers["content-type"])

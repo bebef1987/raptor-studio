@@ -2,6 +2,7 @@ import os
 import signal
 import subprocess
 import sys
+import time
 
 dirname = os.path.dirname(__file__)
 
@@ -32,22 +33,27 @@ class MITMProxyBase(object):
 
         logfile = open(os.path.join(dirname, "mitmproxy.log"), "w")
 
-        self.process = subprocess.Popen(self.command(), stdout=logfile, stderr=logfile)
+        self.process = subprocess.Popen(self.command())
 
         return self.process
 
     def stop(self):
         self.process.send_signal(signal.SIGINT)
+        time.sleep(10)
+
+        if self.process.poll() is None:
+            self.process.kill()
 
     def __enter__(self):
         self.start()
         return self
 
-    def __exit__(self, *args):
-        try:
-            self.process.wait()
-        finally:
-            self.stop()
+    def __exit__(self, type, value, tb):
+        self.stop()
+        # if tb is None:
+        #     self.stop()
+        # else:
+        #     raise Exception()
 
 
 class MITMProxy202(MITMProxyBase):
